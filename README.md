@@ -99,67 +99,67 @@ If sufficient information cannot be found in the available official documents, t
 
 ### 🌐 Web-Based Interface
 
-The application is built using Streamlit and deployed online for easy access.
+The application is built using **Streamlit** and deployed online for easy access.
 
 ---
 
 ## 🏗️ System Architecture
 
 ```text
-                    CIVICGUIDE AI
-                         │
-                         ▼
-             ┌─────────────────────┐
-             │ Official Government  │
-             │       PDFs           │
-             └──────────┬──────────┘
-                        │
-                        ▼
-                  PyPDF Extraction
-                        │
-                        ▼
-                 LangChain Chunking
-                        │
-                        ▼
-             Sentence Transformers
-                  Embeddings
-                        │
-                        ▼
-               FAISS Vector Database
-                        │
-                        │
-        ┌───────────────┘
-        │
-        ▼
-   User Profile + Question
-        │
-        ▼
-   Query Processing
-        │
-        ▼
-    FAISS Retrieval
-        │
-        ▼
- Relevant Government Information
-        │
-        ▼
-      RAG Context
-        │
-        ▼
- Groq API + GPT-OSS-120B
-        │
-        ▼
- Personalized Response
-        │
-        ▼
-   Source Evidence
- 
+                         CIVICGUIDE AI
+                              │
+                              ▼
+                 ┌────────────────────────┐
+                 │ Official Government PDFs│
+                 └────────────┬───────────┘
+                              │
+                              ▼
+                     PyPDF Text Extraction
+                              │
+                              ▼
+                    LangChain Text Chunking
+                              │
+                              ▼
+                 Sentence Transformers
+                       Embeddings
+                              │
+                              ▼
+                    FAISS Vector Database
+                              │
+                              │
+                              ▼
+                    User Profile + Question
+                              │
+                              ▼
+                       Query Processing
+                              │
+                              ▼
+                        FAISS Retrieval
+                              │
+                              ▼
+                 Relevant Government Information
+                              │
+                              ▼
+                         RAG Context
+                              │
+                              ▼
+                   Groq API + GPT-OSS-120B
+                              │
+                              ▼
+                     Personalized Response
+                              │
+                              ▼
+                       Source Evidence
 
-### 🔄 How It Works
-1. Knowledge Preparation
+---
+
+## 🔄 How It Works
+
+### 1. Knowledge Preparation
 
 Official government PDF documents are processed and converted into a searchable knowledge base.
 
+```text
 Government PDFs
       ↓
 PyPDF Text Extraction
@@ -169,29 +169,31 @@ LangChain Text Chunking
 Sentence Transformers Embeddings
       ↓
 FAISS Vector Database
-2. Question Answering
 
-When a user submits their profile information and a question, the system retrieves relevant information and generates a response.
+---
 
-User Profile + Question
-          ↓
-    Query Processing
-          ↓
-     FAISS Retrieval
-          ↓
-Relevant Government Information
-          ↓
-       RAG Context
-          ↓
-Groq API + GPT-OSS-120B
-          ↓
-  Personalized Response
-          ↓
-     Source Evidence
-3. RAG Concept
+## ❓ Question Answering
 
-CivicGuide AI follows the standard Retrieval-Augmented Generation pipeline:
+CivicGuide AI allows users to ask natural-language questions about government schemes and services.
 
+Users can ask questions such as:
+
+- What is the eligibility for a particular government scheme?
+- What benefits are provided by the scheme?
+- What documents are required?
+- Which government department manages the scheme?
+- What information is needed to assess eligibility?
+- Which schemes may be relevant based on the user's profile?
+
+The system processes the user's profile and question, retrieves relevant information from the official government knowledge base, and generates a clear response using the Groq-powered LLM.
+
+If sufficient information is not available in the retrieved documents, the system avoids guessing and informs the user that additional official information is required.
+
+### 3. RAG Concept
+
+CivicGuide AI follows the **Retrieval-Augmented Generation (RAG)** pipeline:
+
+```text
 INPUT
   ↓
 RETRIEVE
@@ -201,191 +203,205 @@ AUGMENT
 GENERATE
   ↓
 SOURCE-BACKED OUTPUT
+---
 
+## 📚 Knowledge Base
 
-### 🛠️ Technologies Used
-
-Programming & Interface
-Technology	Purpose
-Python	Core programming language
-Streamlit	Interactive web application interface
-VS Code	Development environment
-Generative AI
-Technology	Purpose
-Groq API	Provides access to the Large Language Model
-GPT-OSS-120B	Large Language Model used for response generation through Groq
-RAG Pipeline
-Technology	Purpose
-LangChain	Document processing and RAG orchestration
-PyPDF	Extracts text from government PDF documents
-Sentence Transformers	Converts text into vector embeddings
-all-MiniLM-L6-v2	Embedding model used for semantic search
-FAISS	Stores and retrieves relevant document chunks
-Configuration & Deployment
-Technology	Purpose
-python-dotenv	Loads environment configuration
-GitHub	Source code management
-Streamlit Community Cloud	Application deployment
-
-
-### 📚 Knowledge Base
-
-CivicGuide AI uses official government documents as its primary knowledge source.
+CivicGuide AI uses **official government documents** as its primary knowledge source.
 
 ### 🇮🇳 Central Government
 
 The knowledge base includes documents related to schemes such as:
 
-PM Vishwakarma
-PM-KISAN
-National Scholarship Portal
-Other available Central Government scheme documents
+- **PM Vishwakarma**
+- **PM-KISAN**
+- **National Scholarship Portal (NSP)**
+- **Other available Central Government scheme documents**
 
 ### 🏛️ Tamil Nadu Government
 
 The knowledge base includes documents related to schemes such as:
 
-Pudhumai Penn
-Tamil Pudhalvan
-Tamil Nadu Labour Welfare Board Educational Assistance
-Other available Tamil Nadu Government scheme documents
+- **Pudhumai Penn**
+- **Tamil Pudhalvan**
+- **Tamil Nadu Labour Welfare Board Educational Assistance**
+- **Other available Tamil Nadu Government scheme documents**
 
-The system provides information based on the official documents available in its knowledge base.
+> **Note:** The system provides information based on the official documents available in its knowledge base.
 
-### 🧪 Testing & Test Cases
+## 🧪 Testing & Test Cases
 
-The application was tested using different types of government scheme-related queries to verify retrieval and response generation.
+The application was tested using different types of government scheme-related queries.
 
-Test Case 1 – Tamil Nadu Labour Welfare Board Educational Assistance
+| Test Case | Query Type | Expected Result | Result |
+|---|---|---|---|
+| **TC01** | Tamil Nadu Labour Welfare Board Educational Assistance | Retrieve relevant scheme information, eligibility-related details, and required documents from official sources. | **Pass** |
+| **TC02** | PM Vishwakarma | Provide scheme details, eligibility conditions, benefits, and required documents based on retrieved documents. | **Pass** |
+| **TC03** | Pudhumai Penn | Identify the government department responsible for the scheme using the available official information. | **Pass** |
 
-Query:
+### Test Queries
 
-Explain the Tamil Nadu Labour Welfare Board Educational Assistance scheme and tell me what information and documents are needed to determine eligibility.
+**TC01 – Tamil Nadu Labour Welfare Board Educational Assistance**
+> Explain the Tamil Nadu Labour Welfare Board Educational Assistance scheme and tell me what information and documents are needed to determine eligibility.
 
-Expected Result:
+**TC02 – PM Vishwakarma**
+> What is the PM Vishwakarma scheme, who is eligible for it, what benefits are provided, and what documents are required?
 
-Retrieve relevant scheme information, eligibility-related details, and required documents from the available official documents.
+**TC03 – Pudhumai Penn**
+> Which government department is responsible for the Pudhumai Penn scheme?
 
-Result: ✅ Pass
+### Testing Outcome
 
-Test Case 2 – PM Vishwakarma
+The application successfully retrieved relevant information for all three test cases and generated responses based on the retrieved government documents.
 
-Query:
+The tests demonstrate that CivicGuide AI can handle different types of natural-language queries related to government schemes, including scheme information, eligibility-related details, benefits, required documents, and responsible departments.
 
-What is the PM Vishwakarma scheme, who is eligible for it, what benefits are provided, and what documents are required?
+---
 
-Expected Result:
+## 🚀 Deployment
 
-Provide scheme details, eligibility conditions, benefits, and required documents based on the retrieved official documents.
+CivicGuide AI has been deployed using **Streamlit Community Cloud** and is publicly accessible through the following link:
 
-Result: ✅ Pass
-
-Test Case 3 – Pudhumai Penn
-
-Query:
-
-Which government department is responsible for the Pudhumai Penn scheme?
-
-Expected Result:
-
-Identify the responsible government department using the available official information.
-
-Result: ✅ Pass
-
-
-### 🚀 Deployment
-
-CivicGuide AI has been successfully deployed using Streamlit Community Cloud.
-
-### 🌐 Live Application
-
-CivicGuide AI – Live Demo:
+👉 **Live Application:**  
 https://civicguide-ai-cojbj9ndsvi8rtiemia7fz.streamlit.app/
 
-### 🔐 API Key Security
+The deployed application provides the complete workflow:
 
-The Groq API key is stored securely using environment variables during local development and Streamlit Secrets during deployment.
-
-The API key is not included in the source code or GitHub repository.
-
-### ⚠️ Limitations
-
-The system can only provide information available in its current government-document knowledge base.
-It does not replace official government verification.
-Eligibility assessment is based on the official documents provided to the system.
-Final eligibility decisions are made by the concerned government authority.
-Government schemes and guidelines may change over time, requiring the knowledge base to be updated.
-The system does not directly submit applications to government portals.
-The accuracy of responses depends on the quality and completeness of the available official documents.
-
-###🔮 Future Enhancements
-
-Future versions of CivicGuide AI could include:
-
-🌐 Integration with more government schemes and departments
-🗣️ Tamil and multilingual support
-📱 Mobile-friendly interface
-🔄 Automatic updating of government documents
-🔗 Direct links to official application portals
-📋 Step-by-step application guidance
-🧠 Improved eligibility assessment
-🔔 Scheme update and deadline notifications
-🎙️ Voice-based interaction
-📊 Advanced personalized scheme recommendations
-🎓 Project Outcome
-
-CivicGuide AI demonstrates the practical application of Generative AI and Retrieval-Augmented Generation to a real-world public-service problem.
-
-The project combines document processing, semantic search, vector retrieval, Large Language Models, and a web interface to make government scheme information easier to access and understand.
-
-The successful deployment demonstrates an end-to-end AI application:
-
-Official Government Documents
-            ↓
-     Document Processing
-            ↓
-     Vector Embeddings
-            ↓
-       FAISS Retrieval
-            ↓
-         RAG Context
-            ↓
-          Groq LLM
-            ↓
-   Personalized Response
-            ↓
-      Source Evidence
-
-### 📖 References
-Government Sources
-Government of India – National Scholarship Portal
-Government of India – PM Vishwakarma
-Government of India – PM-KISAN
-Tamil Nadu Government – Tamil Nadu Integrated Learning and Schemes
-Tamil Nadu Social Welfare and Women Empowerment Department
-Tamil Nadu Labour Welfare Board
-Tamil Nadu Unorganised Workers Welfare Board
-Technology Documentation
-Python
-Streamlit
-LangChain
-FAISS
-Hugging Face Sentence Transformers
+```text
+User Profile
+     ↓
+User Question
+     ↓
+Query Processing
+     ↓
+FAISS Retrieval
+     ↓
+Relevant Government Documents
+     ↓
+RAG Context
+     ↓
 Groq API
+     ↓
+GPT-OSS-120B
+     ↓
+Generated Response
 
-### 📄 Disclaimer
+---
 
-CivicGuide AI is an educational and informational AI project.
+## 🔐 API Key Security
 
-The information provided by the application is based on the official government documents available in its knowledge base. The application does not represent or act on behalf of any government department.
+The Groq API key is **not stored directly in the source code**.
 
-Eligibility assessments are informational and based on the official documents available to the system. Final eligibility and approval are determined by the concerned government authority.
+For local development, environment variables are used through a `.env` file.
 
-### ⭐ CivicGuide AI
-Making Government Services Simple, Accessible, and Intelligent.
+For deployment, the API key is stored securely using **Streamlit Secrets**.
 
-Built with Python • RAG • FAISS • LangChain • Hugging Face • Groq • Streamlit
+## ⚠️ Limitations
 
-Team QuadraMind 🧠 — Four Minds. One Innovation.
+Although CivicGuide AI provides useful government scheme-related information, the system has some limitations:
 
+- The system can only answer based on the information available in its knowledge base.
+- It does not directly verify a citizen's eligibility with a government department.
+- The accuracy of the response depends on the quality and completeness of the retrieved government documents.
+- Government schemes, eligibility conditions, benefits, and procedures may change over time.
+- The system does not replace official government application or verification processes.
+- Internet-based real-time verification of government records is not currently implemented.
+- If relevant information is not available in the knowledge base, the system may not be able to provide a complete answer.
 
+> **Important:** Users should refer to the concerned government department or official government portal for final eligibility confirmation and application procedures.
+
+## 🔮 Future Enhancements
+
+The following enhancements can be implemented in future versions of CivicGuide AI:
+
+### 🌐 Expanded Government Knowledge Base
+
+Add more government schemes and services from Central and State Governments to increase the coverage of the system.
+
+### 🗣️ Multilingual Support
+
+Add support for regional Indian languages such as **Tamil, Hindi, Telugu, Malayalam, and Kannada** to make government information more accessible.
+
+### 🎯 Advanced Eligibility Matching
+
+Develop a more structured eligibility-matching system that compares the user's profile with multiple eligibility criteria of different schemes.
+
+### 🔄 Automatic Document Updates
+
+Automatically update the knowledge base whenever new official government guidelines, notifications, or scheme documents are released.
+
+### 📱 Mobile-Friendly Application
+
+Improve the user interface for mobile devices or develop a dedicated mobile application for easier access.
+
+### 🏛️ Government Portal Integration
+
+Integrate official government portals and APIs, where available, to provide updated scheme information and relevant application links.
+
+### 📊 Personalized Scheme Recommendations
+
+Recommend potentially relevant government schemes based on the user's **age, education, income, occupation, location, and other eligibility-related information**.
+
+### 🔊 Voice-Based Assistance
+
+Add speech-to-text and text-to-speech features so users can interact with CivicGuide AI using voice.
+
+### 🔍 Improved Retrieval
+
+Implement advanced retrieval techniques such as **hybrid search, reranking, and metadata-based filtering** to improve the relevance of retrieved information.
+
+### 📈 Analytics and Feedback
+
+Add an optional feedback mechanism to understand user needs and improve the quality of responses and document retrieval.
+
+> These enhancements can further improve the **accuracy, accessibility, personalization, and usability** of CivicGuide AI.
+
+---
+
+## 🏁 Conclusion
+
+CivicGuide AI demonstrates how **Generative AI and Retrieval-Augmented Generation (RAG)** can be used to make government scheme information easier to access and understand.
+
+By retrieving information from official government documents and generating natural-language responses, the system helps users find relevant information about **government schemes, eligibility-related conditions, benefits, required documents, and responsible departments** more efficiently.
+
+The project successfully combines **FAISS vector retrieval, Hugging Face Sentence Transformers, LangChain, Streamlit, Groq API, and GPT-OSS-120B** to develop a practical real-world AI application.
+
+Overall, CivicGuide AI provides a simple, intelligent, and source-grounded approach to improving access to government welfare information while reducing the need to manually search through lengthy official documents.
+
+> **Disclaimer:** CivicGuide AI is an informational AI assistant. It does not provide official eligibility verification or replace government authorities, official portals, or application procedures. Users should verify important information with the concerned government department before taking official action.
+
+---
+
+## 👥 Team QuadraMind
+
+### 🧠 QuadraMind
+
+**Four Minds. One Innovation.**
+
+CivicGuide AI was developed by **Team QuadraMind** as a collaborative Generative AI project focused on improving access to government scheme information.
+
+> **Making Government Services Simple, Accessible, and Intelligent.**
+
+---
+
+### 🚀 Project Highlights
+
+- 🤖 **Generative AI**
+- 🔎 **Retrieval-Augmented Generation (RAG)**
+- 📚 **Official Government Knowledge Base**
+- 🧠 **FAISS Vector Search**
+- ⚡ **Groq API + GPT-OSS-120B**
+- 🎯 **Personalized User Context**
+- 🛡️ **Source-Grounded Responses**
+- 🌐 **Streamlit Web Application**
+- ☁️ **Public Cloud Deployment**
+
+---
+
+### 💙 Built with Teamwork
+
+**QuadraMind — Four Minds. One Innovation.**
+
+*Designed, developed, tested, and deployed with a focus on making government information simpler and more accessible.*
+
+---
