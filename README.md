@@ -152,8 +152,6 @@ The application is built using **Streamlit** and deployed online for easy access
                            Source Evidence
 
 ---
-## 🔄 How It Works
-
 ### 1. Knowledge Preparation
 
 Official government PDF documents are processed and converted into a searchable knowledge base.
