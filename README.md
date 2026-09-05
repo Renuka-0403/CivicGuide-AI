@@ -150,6 +150,7 @@ The application is built using **Streamlit** and deployed online for easy access
                                │
                                ▼
                            Source Evidence
+---
 
 ## 🔄 How It Works
 
@@ -167,6 +168,7 @@ LangChain Text Chunking
 Sentence Transformers Embeddings
       ↓
 FAISS Vector Database
+----
 
 ## ❓ Question Answering
 
@@ -184,6 +186,7 @@ Users can ask questions such as:
 The system processes the user's profile and question, retrieves relevant information from the official government knowledge base, and generates a clear response using the Groq-powered LLM.
 
 If sufficient information is not available in the retrieved documents, the system avoids guessing and informs the user that additional official information is required.
+---
 
 ### 3. RAG Concept
 
